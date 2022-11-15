@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fileioassignment;
 
 import java.awt.Color;
@@ -17,10 +12,11 @@ import java.util.StringTokenizer;
 
 /**
  *
- * @author Suresh Nathan
+ * @author Lhavanjan Suresh
  */
 public class FileIOGUI extends javax.swing.JFrame {
 
+    //Variables 
     String fName, lName, username, password, email;
     int a = 0;
     String[] usersArray = new String[25];
@@ -32,9 +28,9 @@ public class FileIOGUI extends javax.swing.JFrame {
      */
     public FileIOGUI() {
         initComponents();
-        resetButton.setVisible(false);
-        returnSignIn.setVisible(false);
-        statusLabel.setText("");
+        resetButton.setVisible(false); //Hides reset button
+        returnSignIn.setVisible(false); //Hides return sign in button
+        statusLabel.setText(""); //Removes the jlabel text for the satus label
         try {
             readFile();
         } catch (FileNotFoundException ex) {
@@ -285,10 +281,25 @@ public class FileIOGUI extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(logUserText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addGap(29, 29, 29)
+                                .addComponent(logPassText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -303,49 +314,34 @@ public class FileIOGUI extends javax.swing.JFrame {
                                     .addComponent(usernameText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(111, 111, 111))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lastNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(228, 228, 228)
                                 .addComponent(jButton2)
                                 .addGap(37, 37, 37)
-                                .addComponent(forgotPassButton))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(67, 67, 67)
-                                    .addComponent(jButton1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(resetButton))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(25, 25, 25)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel8))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(lastNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(statusLabel)))
-                                    .addGap(33, 33, 33)))))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
+                                .addComponent(forgotPassButton)
+                                .addGap(0, 39, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(resetButton))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel10))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(logUserText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addGap(29, 29, 29)
-                                .addComponent(logPassText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(returnSignIn)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(returnSignIn)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addGap(34, 34, 34))
@@ -449,28 +445,30 @@ public class FileIOGUI extends javax.swing.JFrame {
             username = usernameText.getText().trim();
             password = passwordText.getText().trim();
             email = emailText.getText().trim();
-            
-            for (int x = 0; x < a; x++) {
-            StringTokenizer info = new StringTokenizer(usersArray[x], ";");
-            info.nextToken();
-            info.nextToken();
-            String savedUsername = info.nextToken();
-            info.nextToken();
-            String savedEmail = info.nextToken();
+            errorMsg = typeVerfication(fName, lName, username, password, email);
 
-            if (email.equalsIgnoreCase(savedEmail)) {
-                errorMsg = "Email already in use.";
-                x = a;
-               
-            } else if (username.equalsIgnoreCase(savedUsername)){
-                errorMsg = "Username already in use.";
-                x = a;
+            if (errorMsg.contains("Please don't leave fields empty")) {
+                errorMsg = "Please don't leave fields empty";
             }
-            else{
-                errorMsg = typeVerfication(fName, lName, username, password, email);
+
+            for (int x = 0; x < a; x++) {
+                StringTokenizer info = new StringTokenizer(usersArray[x], ";");
+                info.nextToken();
+                info.nextToken();
+                String savedUsername = info.nextToken();
+                info.nextToken();
+                String savedEmail = info.nextToken();
+
+                if (email.equalsIgnoreCase(savedEmail)) {
+                    errorMsg = "Email already in use.";
+                    x = a;
+
+                } else if (username.equalsIgnoreCase(savedUsername)) {
+                    errorMsg = "Username already in use.";
+                    x = a;
+                }
             }
-        }
-    
+
             if (errorMsg.isEmpty()) {
                 usersArray[a] = (fName + ";" + lName + ";" + username + ";" + encryptPass(password) + ";" + email);
                 a++;
@@ -500,36 +498,45 @@ public class FileIOGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         //LOG IN BUTTON
-        String userIn, passIn;
-        boolean correct = true;
+        String userIn, passIn, errorMsg = "", savedUsername = "";
+        boolean correct = false;
 
         userIn = logUserText.getText().trim();
         passIn = logPassText.getText().trim();
+
+        if (userIn.equals("") || passIn.equals("")) {
+            errorMsg = "Please don't leave fields empty";
+        }
+
         passIn = encryptPass(passIn);
 
-        for (int b = 0; b < a; b++) {
-            StringTokenizer info = new StringTokenizer(usersArray[b], ";");
-            info.nextToken();
-            info.nextToken();
-            String savedUsername = info.nextToken();
-            String savedPassword = info.nextToken();
+        if (errorMsg.isEmpty()) {
+            for (int b = 0; b < a; b++) {
+                StringTokenizer info = new StringTokenizer(usersArray[b], ";");
+                info.nextToken();
+                info.nextToken();
+                savedUsername = info.nextToken();
+                String savedPassword = info.nextToken();
 
-            if (userIn.equals(savedUsername) && passIn.equals(savedPassword)) {
-                correct = true;
-                b = a;
-            } else {
-                correct = false;
+                if (userIn.equalsIgnoreCase(savedUsername) && passIn.equals(savedPassword)) {
+                    correct = true;
+                    b = a;
+                } else {
+                    correct = false;
+                    errorMsg = "Invalid!";
+                }
             }
         }
-        if (correct == true) {
+        if (correct) {
             statusLabel.setForeground(Color.BLACK);
-            statusLabel.setText("Login Successful, " + userIn + "!");
+            statusLabel.setText("Login Successful, " + savedUsername + "!");
             logUserText.setText("");
             logPassText.setText("");
         } else {
             statusLabel.setForeground(Color.RED);
-            statusLabel.setText("Invalid!");
+            statusLabel.setText(errorMsg);
         }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -541,85 +548,88 @@ public class FileIOGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         //Reset button
-        String fIn, lIn, userIn, passIn, emailIn;
+        String fIn, lIn, userIn, passIn, emailIn, errorMsg = "";
         boolean correct = true;
-        
+
         PrintWriter output;
-        
+
         try {
             output = new PrintWriter(usersFile);
-        
+
+            readFile();
             output.flush();
 
-        fIn = firstNameText.getText().trim();
-//        System.out.println(fIn);
-        lIn = lastNameText.getText().trim();
-//        System.out.println(lIn);
-        userIn = usernameText.getText().trim();
-//        System.out.println(userIn);
-        passIn = passwordText.getText().trim();
-//        System.out.println(passIn);
-        emailIn = emailText.getText().trim();
-//        System.out.println(emailIn);
+            fIn = firstNameText.getText().trim();
+            lIn = lastNameText.getText().trim();
+            userIn = usernameText.getText().trim();
+            passIn = passwordText.getText().trim();
+            emailIn = emailText.getText().trim();
 
-        for (int b = 0; b < a; b++) {
-            StringTokenizer info = new StringTokenizer(usersArray[b], ";");
-            String name = info.nextToken();
-            String last = info.nextToken();
-            String user = info.nextToken();
-            info.nextToken();
-            String ema = info.nextToken();
-            String errorMsg = "";
-
-            try {
-                errorMsg = typeVerfication(name, last, user, passIn, ema);
-                
-            } catch (FileNotFoundException ex) {
-
+            if (fIn.isEmpty() || lIn.isEmpty() || userIn.isEmpty() || passIn.isEmpty() || emailIn.isEmpty()) {
+                errorMsg = "Please don't leave fields empty";
             }
-
             if (errorMsg.isEmpty()) {
+                for (int b = 0; b < a; b++) {
+                    StringTokenizer info = new StringTokenizer(usersArray[b], ";");
+                    String name = info.nextToken();
+                    String last = info.nextToken();
+                    String user = info.nextToken();
+                    info.nextToken();
+                    String ema = info.nextToken();
+                    errorMsg = "";
 
-                if (user.equals(userIn) && name.equals(fIn) && last.equals(lIn) && ema.equals(emailIn)) {
-                    usersArray[b] = (name + ";" + last + ";" + user + ";" + encryptPass(passIn) + ";" + ema);
-                    for (int x = 0; x < a; x++) {
+                    try {
+                        errorMsg = typeVerfication(name, last, user, passIn, ema);
+                    } catch (FileNotFoundException ex) {
+
+                    }
+
+                    if (errorMsg.isEmpty()) {
+                        if (user.equals(userIn) && name.equals(fIn) && last.equals(lIn) && ema.equals(emailIn)) {
+                            usersArray[b] = (name + ";" + last + ";" + user + ";" + encryptPass(passIn) + ";" + ema);
+                            b = a;
+                            correct = true;
+                        } else {
+                            correct = false;
+                        }
+                    } else {
+                        statusLabel.setForeground(Color.RED);
+                        statusLabel.setText("Insecure password or password contains space.");
+                    }
+                }
+                output.flush();
+                for (int x = 0; x < a; x++) {
                     output.print(usersArray[x] + "\n");
                 }
                 output.close(); //closes printwriter
-                    b = a;
-                    correct = true;
+                if (correct == true) {
+                    statusLabel.setForeground(Color.BLACK);
+                    statusLabel.setText("Password has been reset, " + userIn + "!");
+                    jLabel8.setText("Password:");
+                    jLabel4.setText("Sign-Up:");
+                    jLabel1.setVisible(true);
+                    jLabel2.setVisible(true);
+                    logUserText.setVisible(true);
+                    logPassText.setVisible(true);
+                    jLabel3.setVisible(true);
+                    jButton2.setVisible(true);
+                    forgotPassButton.setVisible(true);
+                    jButton1.setVisible(true);
+                    returnSignIn.setVisible(false);
+                    resetButton.setVisible(false);
+                    firstNameText.setText("");
+                    lastNameText.setText("");
+                    usernameText.setText("");
+                    passwordText.setText("");
+                    emailText.setText("");
                 } else {
-                    correct = false;
+                    statusLabel.setForeground(Color.RED);
+                    statusLabel.setText("User not found/does not match!");
                 }
             } else {
                 statusLabel.setForeground(Color.RED);
-                statusLabel.setText("Insecure password or password contains space.");
+                statusLabel.setText(errorMsg);
             }
-        }
-        if (correct == true) {
-            statusLabel.setForeground(Color.BLACK);
-            statusLabel.setText("Password has been reset, " + userIn + "!");
-            jLabel8.setText("Password:");
-            jLabel4.setText("Sign-Up:");
-            jLabel1.setVisible(true);
-            jLabel2.setVisible(true);
-            logUserText.setVisible(true);
-            logPassText.setVisible(true);
-            jLabel3.setVisible(true);
-            jButton2.setVisible(true);
-            forgotPassButton.setVisible(true);
-            jButton1.setVisible(true);
-            returnSignIn.setVisible(false);
-            resetButton.setVisible(false);
-            firstNameText.setText("");
-            lastNameText.setText("");
-            usernameText.setText("");
-            passwordText.setText("");
-            emailText.setText("");
-        } else {
-            statusLabel.setForeground(Color.RED);
-            statusLabel.setText("User not found/does not match!");
-        }
         } catch (FileNotFoundException ex) {
         }
 
@@ -628,6 +638,7 @@ public class FileIOGUI extends javax.swing.JFrame {
     private void forgotPassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPassButtonActionPerformed
         // TODO add your handling code here:
 
+        statusLabel.setText("");
         jLabel8.setText("New Password:");
         jLabel4.setText("Reset Password:");
         jLabel1.setVisible(false);
@@ -649,6 +660,11 @@ public class FileIOGUI extends javax.swing.JFrame {
         //Goes back to signin/create account screen
         jLabel8.setText("Password:");
         jLabel4.setText("Sign-Up:");
+        firstNameText.setText("");
+        lastNameText.setText("");
+        usernameText.setText("");
+        passwordText.setText("");
+        emailText.setText("");
         jLabel1.setVisible(true);
         jLabel2.setVisible(true);
         logUserText.setVisible(true);
