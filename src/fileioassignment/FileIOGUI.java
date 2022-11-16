@@ -32,32 +32,41 @@ public class FileIOGUI extends javax.swing.JFrame {
         returnSignIn.setVisible(false); //Hides return sign in button
         statusLabel.setText(""); //Removes the jlabel text for the satus label
         try {
-            readFile();
+            readFile(); //Calls method to save users info to array
         } catch (FileNotFoundException ex) {
         }
     }
 
+    /**
+     * Method to read the users info file and save into an array
+     * @throws FileNotFoundException 
+     */
     public void readFile() throws FileNotFoundException {
-        Scanner input = new Scanner(usersFile);
+        Scanner input = new Scanner(usersFile); //creates file object
         try {
+            //while input has next line
             while (true) {
-                String userAccInfo = input.nextLine();
-                usersArray[a] = userAccInfo;
-                a++;
+                String userAccInfo = input.nextLine(); //Saves the line into a string
+                usersArray[a] = userAccInfo; //Saves the string into the array
+                a++;//Increase the value of a
             }
         } catch (NoSuchElementException ex) {
         }
-        input.close();
+        input.close(); //releases the file for other use
     }
 
+    /**
+     * method to encrypt password
+     * @param passIn (decrypted password)
+     * @return SHA-256 encrypted password
+     */
     public String encryptPass(String passIn) {
         String sb1 = "";
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256"); //setup for SHA-256 encryption
-            //give the helper function the password
-            md.update(passIn.getBytes());
-            //perform the encryption
-            byte byteData[] = md.digest();
+            MessageDigest md = MessageDigest.getInstance("SHA-256"); //creates SHA-256 encryption object
+            md.update(passIn.getBytes()); //takes the password as bytes and updates the digest
+            byte byteData[] = md.digest(); //thakes the digest and store it as a byte array
+            //build a new string of the digested password
             for (int i = 0; i < byteData.length; ++i) {
                 sb1 += (Integer.toHexString((byteData[i] & 0xFF) | 0x100).substring(1, 3));
             }
@@ -66,16 +75,29 @@ public class FileIOGUI extends javax.swing.JFrame {
         return sb1;
     }
 
+    /**
+     * method to verify players input
+     * @param first first name
+     * @param last  last name
+     * @param user  username
+     * @param pass password
+     * @param email email address
+     * @return error message
+     * @throws FileNotFoundException 
+     */
     public String typeVerfication(String first, String last, String user, String pass, String email) throws FileNotFoundException {
         String errorMsg = "";
         boolean cont = true;
 
+        //if fields are empty
         if (first.isEmpty() || last.isEmpty() || user.isEmpty() || pass.isEmpty() || email.isEmpty()) {
             errorMsg = "Please don't leave fields empty. ";
+        //Else if user contains a space
         } else if (user.contains(" ")) {
             errorMsg = "Username cannot include spaces. ";
         }
 
+        //Checks if first name only contains alphabets
         for (int a = 0; first.length() > a; a++) {
             if (first.toUpperCase().charAt(a) >= 65 && first.toUpperCase().charAt(a) <= 90) {
                 cont = true;
@@ -87,6 +109,7 @@ public class FileIOGUI extends javax.swing.JFrame {
         if (cont == false) {
             errorMsg = errorMsg + "Name must only include alphabets. ";
         }
+        //Checks if last name only contains alphabets
         for (int b = 0; last.length() > b; b++) {
             if (last.toUpperCase().charAt(b) >= 65 && last.toUpperCase().charAt(b) <= 90) {
                 cont = true;
@@ -98,36 +121,40 @@ public class FileIOGUI extends javax.swing.JFrame {
             }
         }
 
+        //Checks if email address contains '@' or '.' or a space
         if (!email.contains("@") && !email.contains(".") || email.contains(" ")) {
             errorMsg = errorMsg + "Email is invalid. ";
         } else {
-
+            //if email is blank before '@' (Ex: @gmail.com)
             if (email.substring(0, email.indexOf("@")).isEmpty() || email.charAt(email.indexOf("@") + 1) == '.') {
                 errorMsg = errorMsg + "Email is invalid. ";
             }
-
+            //If email last letters length after '.' is greater than 3 or lower than 2
             if (email.substring(email.indexOf("."), email.length() - 1).length() > 3
                     || email.substring(email.indexOf("."), email.length() - 1).length() < 2) {
                 errorMsg = errorMsg + "Email is invalid. ";
             }
         }
 
-        Scanner badpassTxt = new Scanner(badPasswords);
+        Scanner badpassTxt = new Scanner(badPasswords); //Creates file object
         try {
             while (true) {
+                //if password length is less than 4
                 if (pass.length() < 4 && !errorMsg.contains("Please don't leave fields empty.")) { //if the password is less than 4 letters, and theres not already another signup error.
                     errorMsg = errorMsg + "Insecure password. ";
+                  //else if password equals a password stated in text file
                 } else if (badpassTxt.nextLine().equals(pass.toLowerCase())) { //if the bad passwords file contains their password, and theres not already another signup error.
                     errorMsg = errorMsg + "Insecure password. ";
+                // else if password contains a space
                 } else if (pass.contains(" ") && !errorMsg.contains("Insecure password.") && !errorMsg.contains("Password cannot include space.")) {
                     errorMsg = errorMsg + "Password cannot include space. ";
                 }
             }
         } catch (NoSuchElementException ex) {
-            badpassTxt.close();
+            badpassTxt.close(); //releases the file for other use
         }
 
-        return errorMsg;
+        return errorMsg; //returs errorMsg
     }
 
     /**
@@ -434,23 +461,27 @@ public class FileIOGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_emailTextActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //Create Account button
+        
         PrintWriter output;
         try {
-            output = new PrintWriter(usersFile);
+            output = new PrintWriter(usersFile); //Creates printer object
             String errorMsg = "";
 
+            //Gets text from text field and saves to strings
             fName = firstNameText.getText().trim();
             lName = lastNameText.getText().trim();
             username = usernameText.getText().trim();
             password = passwordText.getText().trim();
             email = emailText.getText().trim();
+            //Checks if account information is valid and acceptable
             errorMsg = typeVerfication(fName, lName, username, password, email);
 
             if (errorMsg.contains("Please don't leave fields empty")) {
                 errorMsg = "Please don't leave fields empty";
             }
 
+            //Checks arrays if email is same or username is same
             for (int x = 0; x < a; x++) {
                 StringTokenizer info = new StringTokenizer(usersArray[x], ";");
                 info.nextToken();
@@ -467,16 +498,21 @@ public class FileIOGUI extends javax.swing.JFrame {
                     errorMsg = "Username already in use.";
                     x = a;
                 }
+                if (username.contains(";")){
+                    errorMsg = "Do not use ';' in username.";
+                }
             }
-
+            //If there are no error messages
             if (errorMsg.isEmpty()) {
+                //Add account to array
                 usersArray[a] = (fName + ";" + lName + ";" + username + ";" + encryptPass(password) + ";" + email);
                 a++;
-                output.flush();
+                output.flush(); //Clear the text file
+                //Rewrite all the arrays onto the text file
                 for (int b = 0; b < a; b++) {
                     output.print(usersArray[b] + "\n");
                 }
-                output.close(); //closes printwriter
+                output.close(); //closes printwriter so it could release the file for other use
                 statusLabel.setForeground(Color.BLACK);
                 statusLabel.setText("Account Created!");
                 firstNameText.setText("");
@@ -495,22 +531,27 @@ public class FileIOGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-
         //LOG IN BUTTON
+        
+        //Variables
         String userIn, passIn, errorMsg = "", savedUsername = "";
         boolean correct = false;
 
+        //gets data from text field and saves to string variaable
         userIn = logUserText.getText().trim();
         passIn = logPassText.getText().trim();
 
+        //if username or password is empty
         if (userIn.equals("") || passIn.equals("")) {
             errorMsg = "Please don't leave fields empty";
         }
 
+        //Encrypt the password
         passIn = encryptPass(passIn);
 
+        //If there is no error messages
         if (errorMsg.isEmpty()) {
+            //Go through the array and check if username and password matches
             for (int b = 0; b < a; b++) {
                 StringTokenizer info = new StringTokenizer(usersArray[b], ";");
                 info.nextToken();
@@ -518,6 +559,7 @@ public class FileIOGUI extends javax.swing.JFrame {
                 savedUsername = info.nextToken();
                 String savedPassword = info.nextToken();
 
+                //if username and password matches with array
                 if (userIn.equalsIgnoreCase(savedUsername) && passIn.equals(savedPassword)) {
                     correct = true;
                     b = a;
@@ -540,8 +582,8 @@ public class FileIOGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
+        //Close button
+        System.exit(0); //Exits out the GUI
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
@@ -554,21 +596,43 @@ public class FileIOGUI extends javax.swing.JFrame {
         PrintWriter output;
 
         try {
-            output = new PrintWriter(usersFile);
+            output = new PrintWriter(usersFile); //Creates printer object
 
-            readFile();
-            output.flush();
+            readFile(); //Calls method to read file
 
+            //Gets text from text field and saves to strings
             fIn = firstNameText.getText().trim();
             lIn = lastNameText.getText().trim();
             userIn = usernameText.getText().trim();
             passIn = passwordText.getText().trim();
             emailIn = emailText.getText().trim();
-
+            
+            //Checks if strings are empty
             if (fIn.isEmpty() || lIn.isEmpty() || userIn.isEmpty() || passIn.isEmpty() || emailIn.isEmpty()) {
                 errorMsg = "Please don't leave fields empty";
             }
+            
+            
+            Scanner badpassTxt = new Scanner(badPasswords); //Creates a scanner objects
+            //Checks if password follows restrictions (copied method)
+        try {
+            while (true) {
+                if (passIn.length() < 4 && !errorMsg.contains("Please don't leave fields empty.")) { //if the password is less than 4 letters, and theres not already another signup error.
+                    errorMsg = errorMsg + "Insecure password. ";
+                } else if (badpassTxt.nextLine().equals(passIn.toLowerCase())) { //if the bad passwords file contains their password, and theres not already another signup error.
+                    errorMsg = errorMsg + "Insecure password. ";
+                } else if (passIn.contains(" ") && !errorMsg.contains("Insecure password.") && !errorMsg.contains("Password cannot include space.")) {
+                    errorMsg = errorMsg + "Password cannot include space. ";
+                }
+            }
+        } catch (NoSuchElementException ex) {
+            badpassTxt.close(); //closes scanner object so it could release the file for other use
+        }
+            
+        //If error message is empty
             if (errorMsg.isEmpty()) {
+                output.flush(); //Clears the file
+                //Resets password
                 for (int b = 0; b < a; b++) {
                     StringTokenizer info = new StringTokenizer(usersArray[b], ";");
                     String name = info.nextToken();
@@ -576,15 +640,8 @@ public class FileIOGUI extends javax.swing.JFrame {
                     String user = info.nextToken();
                     info.nextToken();
                     String ema = info.nextToken();
-                    errorMsg = "";
 
-                    try {
-                        errorMsg = typeVerfication(name, last, user, passIn, ema);
-                    } catch (FileNotFoundException ex) {
-
-                    }
-
-                    if (errorMsg.isEmpty()) {
+                        //Rewrites users info with new password onto array
                         if (user.equals(userIn) && name.equals(fIn) && last.equals(lIn) && ema.equals(emailIn)) {
                             usersArray[b] = (name + ";" + last + ";" + user + ";" + encryptPass(passIn) + ";" + ema);
                             b = a;
@@ -592,12 +649,8 @@ public class FileIOGUI extends javax.swing.JFrame {
                         } else {
                             correct = false;
                         }
-                    } else {
-                        statusLabel.setForeground(Color.RED);
-                        statusLabel.setText("Insecure password or password contains space.");
-                    }
                 }
-                output.flush();
+                //Writes all the array information onto the file
                 for (int x = 0; x < a; x++) {
                     output.print(usersArray[x] + "\n");
                 }
